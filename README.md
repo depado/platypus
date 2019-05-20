@@ -15,6 +15,17 @@ Very simple mock server that doesn't do much
 > Unfortunately sometimes things don't go as expected and you're dealing with a 
 > platypus instead. It's ok.
 
+<!-- TOC -->
+- [Introduction](#introduction)
+- [Usage](#usage)
+- [Configuration](#configuration)
+  - [mock.yml](#mockyml)
+  - [Responses](#responses)
+  - [Headers](#headers)
+  - [Empty method endpoint](#empty-method-endpoint)
+- [Attributions](#attributions)
+<!-- /TOC -->
+
 ## Introduction
 
 Platypus is a very simple mock server to abstract external services. It supports
