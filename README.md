@@ -41,3 +41,64 @@ Flags:
 
 Use "platypus [command] --help" for more information about a command.
 ```
+
+## Configuration
+
+### mock.yml
+
+To define how platypus should behave you should create a `mock.yml` file where
+you're going to start platypus. Alternatively you can place the yaml file
+anywhere and name it as you like if you provide the `--mock <path>` flag when
+starting platypus.
+
+This file contains the various definitions of your endpoints as so:
+
+```yaml
+---
+endpoints:
+- path: /mock/path/:witharg
+  get:
+    responses:
+    - code: 200
+      body: '{"ok": "Got the query and responding with 200"}'
+      preset: json
+  post:
+    responses:
+    - code: 500
+      body: '{"error": "oh no"}'
+      preset: json
+
+- path: /real/world/endpoint
+  get:
+    responses:
+    - code: 500
+      body: '{"error": "oh no"}'
+      preset: json
+```
+
+Each endpoint is defined by an endpoint which can accept query params in the
+same form as [gin](https://github.com/gin-gonic/gin). Then you can define the
+HTTP method it should handle (`get`, `post`, `put`, `patch`, `delete`, `head`, 
+`options`). Each of these method can have a specific behavior.
+
+### Responses
+
+Every method in a path can have multiple responses. These responses are sent
+in a random manner when the endpoint is called. This allows to simulate 
+unexpected behaviors on the mock side. If you wish you can add a `ratio` keyword
+which will tell platypus how often this response should be sent back. For 
+example the following example will send back a `500` error 1% of the time:
+
+```yaml
+endpoints:
+- path: /failure/maybe
+  get:
+    responses:
+    - code: 200
+    - code: 500
+      ratio: 1
+```
+
+The ratio keyword is a percentage. If no ratio is provided, then the odds are 
+distributed equally between all the possible responses. So if there's only one
+response provided, it will always be sent.
