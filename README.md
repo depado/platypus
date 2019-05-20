@@ -3,6 +3,12 @@ Very simple mock server that doesn't do much
 
 [![Build Status](https://drone.depa.do/api/badges/Depado/platypus/status.svg)](https://drone.depa.do/Depado/platypus)
 
+
+
+> That external API you're relying on is supposed to send back a duck. 
+> Unfortunately sometimes things don't go as expected and you're dealing with a 
+> platypus instead. It's ok.
+
 ## Introduction
 
 Platypus is a very simple mock server to abstract external services. It supports
@@ -102,3 +108,10 @@ endpoints:
 The ratio keyword is a percentage. If no ratio is provided, then the odds are 
 distributed equally between all the possible responses. So if there's only one
 response provided, it will always be sent.
+
+
+## Attributions
+
+Platypus drawing by 
+[rawpixel](https://www.rawpixel.com/image/562293/duck-billed-platypus-shade-drawing) 
+under the [CC0 license](https://creativecommons.org/publicdomain/zero/1.0/)
