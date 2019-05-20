@@ -1,6 +1,6 @@
 <h1 align="center">Platypus</h1>
 <h2 align="center">
-  <img src="/img/platypus.jpg" alt="mascot" height="200px">
+  <img src="img/platypus.jpg" alt="mascot" height="350px">
 
   [![forthebadge](https://forthebadge.com/images/badges/made-with-go.svg)](https://forthebadge.com)[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)[![forthebadge](https://forthebadge.com/images/badges/uses-badges.svg)](https://forthebadge.com)
 
