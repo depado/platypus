@@ -115,6 +115,77 @@ The ratio keyword is a percentage. If no ratio is provided, then the odds are
 distributed equally between all the possible responses. So if there's only one
 response provided, it will always be sent.
 
+Note that the above yaml is equivalent to this one:
+
+```yaml
+endpoints:
+- path: /failure/maybe
+  get:
+    responses:
+    - code: 200
+      ratio: 99
+    - code: 500
+      ratio: 1
+```
+
+### Headers
+
+An additional field `headers` can be added to a specific method. 
+This header will then be considered as mandatory and, if absent from the request, 
+the endpoint will return a `400 Bad Request` with a specific JSON output. 
+
+Note that this check will happen before picking up the response, so it will
+always return this error before returning any other response. 
+
+Headers in the responses can be defined directly in the response like so:
+
+```yaml
+endpoints:
+- path: /failure/maybe
+  get:
+    responses:
+    - code: 200
+      headers:
+      - name: Content-Type
+        value: application/json; charset=utf-8
+    - code: 500
+      ratio: 1
+```
+
+To make things simpler regarding headers, a specific key `preset` can be used.
+The `json` preset will set the `Content-Type` header with the correct value. So
+the example above can be rewritten like so:
+
+```yaml
+endpoints:
+- path: /failure/maybe
+  get:
+    responses:
+    - code: 200
+      preset: json
+    - code: 500
+      ratio: 1
+```
+
+### Empty method endpoint
+
+If a method is defined within an endpoint but doesn't have responses or anything
+attached, then a `200` will be sent back. This can be achieved like so:
+
+```yaml
+- path: /maybe
+  post: {}
+  patch: {}
+  get:
+    responses:
+    - code: 200
+      preset: json
+    - code: 500
+      ratio: 1
+```
+
+When starting up, platypus will be able to generate two simple endpoints for the
+POST and PATCH methods. Both will simply return a `200` and return.
 
 ## Attributions
 

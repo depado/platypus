@@ -2,8 +2,8 @@ package mocker
 
 // Header is a simple header struct used to parse the configuration file
 type Header struct {
-	Name     string `yaml:"name"`
-	Required bool   `yaml:"required"`
+	Name  string `yaml:"name"`
+	Value string `yaml:"value"`
 }
 
 // Response is a simple response struct used to parse the configuration file

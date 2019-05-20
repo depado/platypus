@@ -11,7 +11,7 @@ import (
 type MethodEndpoint struct {
 	Preset    string      `yaml:"preset"` // random, ratio
 	Responses []*Response `yaml:"responses"`
-	Headers   []Header    `yaml:"headers"`
+	Headers   []string    `yaml:"headers"`
 }
 
 // PickResponse picks a random response according to the ratio defined in the
@@ -58,8 +58,8 @@ func (e MethodEndpoint) ToHandler() func(c *gin.Context) {
 	e.CalcRatios()
 	return func(c *gin.Context) {
 		for _, h := range e.Headers {
-			if h.Required && c.GetHeader(h.Name) == "" {
-				c.JSON(http.StatusBadRequest, gin.H{"error": "header is required", "missing": h.Name})
+			if c.GetHeader(h) == "" {
+				c.JSON(http.StatusBadRequest, gin.H{"error": "header is required", "missing": h})
 				return
 			}
 		}
@@ -72,6 +72,9 @@ func (e MethodEndpoint) ToHandler() func(c *gin.Context) {
 		switch r.Preset {
 		case "json":
 			c.Header("Content-Type", "application/json; charset=utf-8")
+		}
+		for _, h := range r.Headers {
+			c.Header(h.Name, h.Value)
 		}
 		if r.Body != "" {
 			c.String(r.Code, r.Body)
