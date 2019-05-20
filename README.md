@@ -1,30 +1,21 @@
-# platypus
-Very simple mock server that doesn't do much
+<h1 align="center">Platypus</h1>
+<h2 align="center">
+  <img src="/img/platypus.jpg" alt="mascot" height="200px">
 
-[![forthebadge](https://forthebadge.com/images/badges/made-with-go.svg)](https://forthebadge.com)[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)[![forthebadge](https://forthebadge.com/images/badges/uses-badges.svg)](https://forthebadge.com)
+  [![forthebadge](https://forthebadge.com/images/badges/made-with-go.svg)](https://forthebadge.com)[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)[![forthebadge](https://forthebadge.com/images/badges/uses-badges.svg)](https://forthebadge.com)
 
-![Go Version](https://img.shields.io/badge/Go%20Version-latest-brightgreen.svg)
-[![Go Report Card](https://goreportcard.com/badge/github.com/Depado/platypus)](https://goreportcard.com/report/github.com/Depado/platypus)
-[![Build Status](https://drone.depa.do/api/badges/Depado/platypus/status.svg)](https://drone.depa.do/Depado/platypus)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Depado/platypus/blob/master/LICENSE)
-[![Say Thanks!](https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg)](https://saythanks.io/to/Depado)
+  ![Go Version](https://img.shields.io/badge/Go%20Version-latest-brightgreen.svg)
+  [![Go Report Card](https://goreportcard.com/badge/github.com/Depado/platypus)](https://goreportcard.com/report/github.com/Depado/platypus)
+  [![Build Status](https://drone.depa.do/api/badges/Depado/platypus/status.svg)](https://drone.depa.do/Depado/platypus)
+  [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Depado/platypus/blob/master/LICENSE)
+  [![Say Thanks!](https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg)](https://saythanks.io/to/Depado)
+</h2>
 
-![platypus](img/platypus.jpg)
+<h2 align="center">Very simple mock server that doesn't do much</h2>
 
 > That external API you're relying on is supposed to send back a duck. 
 > Unfortunately sometimes things don't go as expected and you're dealing with a 
 > platypus instead. It's ok.
-
-<!-- TOC -->
-- [Introduction](#introduction)
-- [Usage](#usage)
-- [Configuration](#configuration)
-  - [mock.yml](#mockyml)
-  - [Responses](#responses)
-  - [Headers](#headers)
-  - [Empty method endpoint](#empty-method-endpoint)
-- [Attributions](#attributions)
-<!-- /TOC -->
 
 ## Introduction
 
