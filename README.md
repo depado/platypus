@@ -3,7 +3,7 @@ Very simple mock server that doesn't do much
 
 [![Build Status](https://drone.depa.do/api/badges/Depado/platypus/status.svg)](https://drone.depa.do/Depado/platypus)
 
-
+![platypus](img/platypus.jpg)
 
 > That external API you're relying on is supposed to send back a duck. 
 > Unfortunately sometimes things don't go as expected and you're dealing with a 
