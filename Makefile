@@ -1,6 +1,7 @@
 .DEFAULT_GOAL := build
 
 export GO111MODULE=on
+export CGO_ENABLED=false
 BINARY=platypus
 VERSION=$(shell git describe --abbrev=0 --tags 2> /dev/null || echo "0.1.0")
 BUILD=$(shell git rev-parse HEAD 2> /dev/null || echo "undefined")
@@ -13,6 +14,10 @@ help:
 .PHONY: build
 build: ## Build
 	go build -o $(BINARY) $(LDFLAGS)
+
+.PHONY: install
+install: ## Build and install
+	go install $(LDFLAGS)
 
 .PHONY: run
 run: ## Runs the server
@@ -29,6 +34,14 @@ test: ## Run the unit test suite
 .PHONY: ttest
 ttest: ## Run the unit test suite and parse it with tparse
 	go test -race -coverprofile="coverage.txt" ./... -json | tparse -all
+
+.PHONY: release
+release: ## Create a new release on Github
+	VERSION=$(VERSION) BUILD=$(BUILD) goreleaser
+
+.PHONY: snapshot
+snapshot: ## Create a new snapshot release
+	VERSION=$(VERSION) BUILD=$(BUILD) goreleaser --snapshot --rm-dist
 
 .PHONY: clean
 clean: ## Remove the binary

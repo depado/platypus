@@ -23,6 +23,23 @@ Platypus is a very simple mock server to abstract external services. It supports
 CORS which is disabled by default but fully configurable. Platypus also allows
 to respond with weighted responses.
 
+## Install
+
+You can install platypus by using directly the go command line:
+
+```bash
+$ go install github.com/Depado/platypus
+```
+
+Or if you wish to have the version information and such:
+
+```
+$ git clone git@github.com:Depado/platypus.git
+$ make install
+```
+
+Or grab the latest release from the [release page](https://github.com/Depado/platypus/releases).
+
 ## Usage
 
 ```
