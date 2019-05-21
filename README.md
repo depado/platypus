@@ -9,9 +9,9 @@
   [![Build Status](https://drone.depa.do/api/badges/Depado/platypus/status.svg)](https://drone.depa.do/Depado/platypus)
   [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Depado/platypus/blob/master/LICENSE)
   [![Say Thanks!](https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg)](https://saythanks.io/to/Depado)
-</h2>
 
-<h2 align="center">Very simple mock server that doesn't do much</h2>
+  Very simple mock server that doesn't do much
+</h2>
 
 > That external API you're relying on is supposed to send back a duck. 
 > Unfortunately sometimes things don't go as expected and you're dealing with a 
