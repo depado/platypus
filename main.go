@@ -39,6 +39,8 @@ var versionCmd = &cobra.Command{
 func run() {
 	var err error
 
+	fmt.Println(cmd.Logo)
+	gin.SetMode(viper.GetString("server.mode"))
 	r := gin.Default()
 	corsc := infra.NewCorsConfig(
 		viper.GetBool("server.cors.enable"),
@@ -49,12 +51,15 @@ func run() {
 		viper.GetStringSlice("server.cors.expose"),
 	)
 	if corsc != nil {
+		logrus.Info("CORS Enabled")
 		r.Use(cors.New(*corsc))
 	}
-	viper.GetString("server.mode")
+
+	logrus.Info("Generating Routes")
 	if err = mocker.GenerateRoutes(viper.GetString("mock"), r); err != nil {
 		logrus.WithError(err).Fatal("Couldn't generate routes")
 	}
+	logrus.Infof("Running Mock Server on %s:%d", viper.GetString("server.host"), viper.GetInt("server.port"))
 	if err = r.Run(fmt.Sprintf("%s:%d", viper.GetString("server.host"), viper.GetInt("server.port"))); err != nil {
 		logrus.WithError(err).Fatal("Couldn't start router")
 	}

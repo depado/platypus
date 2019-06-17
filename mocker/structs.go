@@ -1,5 +1,28 @@
 package mocker
 
+import (
+	"fmt"
+	"strings"
+
+	"github.com/logrusorgru/aurora"
+)
+
+func codeToColor(code int) aurora.Value {
+	switch {
+	case code >= 100 && code < 200:
+		return aurora.Cyan(code)
+	case code >= 200 && code < 300:
+		return aurora.Green(code)
+	case code >= 300 && code < 400:
+		return aurora.Yellow(code)
+	case code >= 400 && code < 500:
+		return aurora.Red(code)
+	case code >= 500 && code < 600:
+		return aurora.BrightRed(code)
+	}
+	return aurora.White(code)
+}
+
 // Header is a simple header struct used to parse the configuration file
 type Header struct {
 	Name  string `yaml:"name"`
@@ -13,6 +36,30 @@ type Response struct {
 	Headers []Header `yaml:"headers"`
 	Preset  string   `yaml:"preset"`
 	Ratio   int      `yaml:"ratio"`
+}
+
+// Info returns a string to print out the information of a response
+func (r Response) Info(prefix string, last bool) string {
+	var sb strings.Builder
+	s := "├"
+	if last {
+		s = "└"
+	}
+	sb.WriteString(fmt.Sprintf("%s %s %s", prefix, s, codeToColor(r.Code).String()))
+	if r.Preset != "" {
+		switch r.Preset {
+		case "json":
+			sb.WriteString(" JSON")
+		case "text":
+			sb.WriteString(" Text")
+		default:
+			sb.WriteString(" " + r.Preset)
+		}
+	}
+	if r.Ratio != 0 {
+		sb.WriteString(fmt.Sprintf(" (%d%%)", r.Ratio))
+	}
+	return sb.String()
 }
 
 // Endpoint is a simple endpoint struct used to parse the configuration file
@@ -33,26 +80,68 @@ type Endpoint struct {
 // EndpointGenerator
 func (e *Endpoint) Compute() {
 	e.All = []EndpointGenerator{}
+	fmt.Println()
+	fmt.Println(aurora.Underline(e.Path))
+	hasNext := true
+	withNext := "├ %s%s\n│\n"
+	withoutNext := "└ %s%s\n"
 	if e.Get != nil {
 		e.All = append(e.All, e.Get)
+		hasNext = e.Post != nil || e.Put != nil || e.Patch != nil || e.Delete != nil || e.Head != nil || e.Options != nil
+		if hasNext {
+			fmt.Printf(withNext, aurora.Blue("GET"), e.Get.Info(!hasNext))
+		} else {
+			fmt.Printf(withoutNext, aurora.Blue("GET"), e.Get.Info(!hasNext))
+		}
 	}
 	if e.Post != nil {
 		e.All = append(e.All, e.Post)
+		hasNext = e.Put != nil || e.Patch != nil || e.Delete != nil || e.Head != nil || e.Options != nil
+		if hasNext {
+			fmt.Printf(withNext, aurora.Green("POST"), e.Post.Info(!hasNext))
+		} else {
+			fmt.Printf(withoutNext, aurora.Green("POST"), e.Post.Info(!hasNext))
+		}
 	}
 	if e.Put != nil {
 		e.All = append(e.All, e.Put)
+		hasNext = e.Patch != nil || e.Delete != nil || e.Head != nil || e.Options != nil
+		if hasNext {
+			fmt.Printf(withNext, aurora.Yellow("PUT"), e.Put.Info(!hasNext))
+		} else {
+			fmt.Printf(withoutNext, aurora.Yellow("PUT"), e.Put.Info(!hasNext))
+		}
 	}
 	if e.Patch != nil {
 		e.All = append(e.All, e.Patch)
+		hasNext = e.Delete != nil || e.Head != nil || e.Options != nil
+		if hasNext {
+			fmt.Printf(withNext, aurora.BrightYellow("PATCH"), e.Patch.Info(!hasNext))
+		} else {
+			fmt.Printf(withoutNext, aurora.BrightYellow("PATCH"), e.Patch.Info(!hasNext))
+		}
 	}
 	if e.Delete != nil {
 		e.All = append(e.All, e.Delete)
+		hasNext = e.Head != nil || e.Options != nil
+		if hasNext {
+			fmt.Printf(withNext, aurora.Red("DELETE"), e.Delete.Info(!hasNext))
+		} else {
+			fmt.Printf(withoutNext, aurora.Red("DELETE"), e.Delete.Info(!hasNext))
+		}
 	}
 	if e.Head != nil {
 		e.All = append(e.All, e.Head)
+		hasNext = e.Options != nil
+		if hasNext {
+			fmt.Printf(withNext, aurora.Cyan("HEAD"), e.Head.Info(!hasNext))
+		} else {
+			fmt.Printf(withoutNext, aurora.Cyan("HEAD"), e.Head.Info(!hasNext))
+		}
 	}
 	if e.Options != nil {
 		e.All = append(e.All, e.Options)
+		fmt.Printf("└ %s%s\n\n", aurora.BrightCyan("OPTIONS"), e.Options.Info(true))
 	}
 }
 

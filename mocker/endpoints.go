@@ -3,6 +3,7 @@ package mocker
 import (
 	"math/rand"
 	"net/http"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 )
@@ -12,6 +13,25 @@ type MethodEndpoint struct {
 	Preset    string      `yaml:"preset"` // random, ratio
 	Responses []*Response `yaml:"responses"`
 	Headers   []string    `yaml:"headers"`
+}
+
+// Info returns the string representing the info
+func (e MethodEndpoint) Info(last bool) string {
+	var sb strings.Builder
+	pref := "\n│"
+	if last {
+		pref = "\n "
+	}
+	if len(e.Responses) > 1 {
+		for i, r := range e.Responses {
+			sb.WriteString(r.Info(pref, i == len(e.Responses)-1))
+		}
+	} else if len(e.Responses) == 1 {
+		sb.WriteString(e.Responses[0].Info(pref, true))
+	} else {
+		sb.WriteString(Response{Code: 200, Preset: "Default"}.Info(pref, true))
+	}
+	return sb.String()
 }
 
 // PickResponse picks a random response according to the ratio defined in the
