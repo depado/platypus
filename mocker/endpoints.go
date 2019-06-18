@@ -18,9 +18,9 @@ type MethodEndpoint struct {
 // Info returns the string representing the info
 func (e MethodEndpoint) Info(last bool) string {
 	var sb strings.Builder
-	pref := "\n│"
+	pref := "\n│ "
 	if last {
-		pref = "\n "
+		pref = "\n  "
 	}
 	if len(e.Responses) > 1 {
 		for i, r := range e.Responses {
@@ -29,7 +29,7 @@ func (e MethodEndpoint) Info(last bool) string {
 	} else if len(e.Responses) == 1 {
 		sb.WriteString(e.Responses[0].Info(pref, true))
 	} else {
-		sb.WriteString(Response{Code: 200, Preset: "Default"}.Info(pref, true))
+		sb.WriteString(Response{Code: 200, Preset: "Default", Ratio: 100}.Info(pref, true))
 	}
 	return sb.String()
 }
@@ -75,7 +75,6 @@ func (e *MethodEndpoint) CalcRatios() {
 
 // ToHandler generates a handler to apply on the router
 func (e MethodEndpoint) ToHandler() func(c *gin.Context) {
-	e.CalcRatios()
 	return func(c *gin.Context) {
 		for _, h := range e.Headers {
 			if c.GetHeader(h) == "" {

@@ -41,9 +41,9 @@ type Response struct {
 // Info returns a string to print out the information of a response
 func (r Response) Info(prefix string, last bool) string {
 	var sb strings.Builder
-	s := "├"
+	s := "├─"
 	if last {
-		s = "└"
+		s = "└─"
 	}
 	sb.WriteString(fmt.Sprintf("%s %s %s", prefix, s, codeToColor(r.Code).String()))
 	if r.Preset != "" {
@@ -56,8 +56,8 @@ func (r Response) Info(prefix string, last bool) string {
 			sb.WriteString(" " + r.Preset)
 		}
 	}
-	if r.Ratio != 0 {
-		sb.WriteString(fmt.Sprintf(" (%d%%)", r.Ratio))
+	if r.Ratio != 0 && r.Ratio != 100 {
+		sb.WriteString(fmt.Sprintf(" [%d%%]", r.Ratio))
 	}
 	return sb.String()
 }
@@ -80,12 +80,13 @@ type Endpoint struct {
 // EndpointGenerator
 func (e *Endpoint) Compute() {
 	e.All = []EndpointGenerator{}
-	fmt.Println()
-	fmt.Println(aurora.Underline(e.Path))
 	hasNext := true
-	withNext := "├ %s%s\n│\n"
-	withoutNext := "└ %s%s\n"
+	withNext := "├─ %s%s\n│\n"
+	withoutNext := "└─ %s%s\n"
+
+	fmt.Printf("\n%s\n", aurora.Underline(e.Path))
 	if e.Get != nil {
+		e.Get.CalcRatios()
 		e.All = append(e.All, e.Get)
 		hasNext = e.Post != nil || e.Put != nil || e.Patch != nil || e.Delete != nil || e.Head != nil || e.Options != nil
 		if hasNext {
@@ -95,6 +96,7 @@ func (e *Endpoint) Compute() {
 		}
 	}
 	if e.Post != nil {
+		e.Post.CalcRatios()
 		e.All = append(e.All, e.Post)
 		hasNext = e.Put != nil || e.Patch != nil || e.Delete != nil || e.Head != nil || e.Options != nil
 		if hasNext {
@@ -104,6 +106,7 @@ func (e *Endpoint) Compute() {
 		}
 	}
 	if e.Put != nil {
+		e.Put.CalcRatios()
 		e.All = append(e.All, e.Put)
 		hasNext = e.Patch != nil || e.Delete != nil || e.Head != nil || e.Options != nil
 		if hasNext {
@@ -113,6 +116,7 @@ func (e *Endpoint) Compute() {
 		}
 	}
 	if e.Patch != nil {
+		e.Patch.CalcRatios()
 		e.All = append(e.All, e.Patch)
 		hasNext = e.Delete != nil || e.Head != nil || e.Options != nil
 		if hasNext {
@@ -122,6 +126,7 @@ func (e *Endpoint) Compute() {
 		}
 	}
 	if e.Delete != nil {
+		e.Delete.CalcRatios()
 		e.All = append(e.All, e.Delete)
 		hasNext = e.Head != nil || e.Options != nil
 		if hasNext {
@@ -131,6 +136,7 @@ func (e *Endpoint) Compute() {
 		}
 	}
 	if e.Head != nil {
+		e.Head.CalcRatios()
 		e.All = append(e.All, e.Head)
 		hasNext = e.Options != nil
 		if hasNext {
@@ -140,8 +146,9 @@ func (e *Endpoint) Compute() {
 		}
 	}
 	if e.Options != nil {
+		e.Options.CalcRatios()
 		e.All = append(e.All, e.Options)
-		fmt.Printf("└ %s%s\n\n", aurora.BrightCyan("OPTIONS"), e.Options.Info(true))
+		fmt.Printf(withoutNext, aurora.BrightCyan("OPTIONS"), e.Options.Info(true))
 	}
 }
 
