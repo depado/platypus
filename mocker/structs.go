@@ -80,7 +80,7 @@ type Endpoint struct {
 // EndpointGenerator
 func (e *Endpoint) Compute() {
 	e.All = []EndpointGenerator{}
-	hasNext := true
+	var hasNext bool
 	withNext := "├─ %s%s\n│\n"
 	withoutNext := "└─ %s%s\n"
 
