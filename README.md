@@ -42,7 +42,9 @@ Or grab the latest release from the [release page](https://github.com/Depado/pla
 
 ## Usage
 
-![screenshot](img/screenshot.png)
+<h2 align="center">
+  <img src="img/screenshot.png" alt="screenshot" height="400px">
+</h2>
 
 ```
 Platypus is a very simple mock server
@@ -74,6 +76,10 @@ Flags:
 
 Use "platypus [command] --help" for more information about a command.
 ```
+
+When starting up, platypus will display the endpoints with the associated 
+method(s) as well as the response information (type of response, code, and 
+probability)
 
 ## Configuration
 
