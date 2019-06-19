@@ -42,6 +42,8 @@ Or grab the latest release from the [release page](https://github.com/Depado/pla
 
 ## Usage
 
+![screenshot](img/screenshot.png)
+
 ```
 Platypus is a very simple mock server
 
