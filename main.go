@@ -15,25 +15,12 @@ import (
 	"github.com/spf13/viper"
 )
 
-// Build number and versions injected at compile time, set yours
-var (
-	Version = "unknown"
-	Build   = "unknown"
-)
-
 // Main command that will be run when no other command is provided on the
 // command-line
 var rootCmd = &cobra.Command{
 	Use:   "platypus",
 	Short: "Platypus is a very simple mock server",
 	Run:   func(cmd *cobra.Command, args []string) { run() }, // nolint: unparam
-}
-
-// Version command that will display the build number and version (if any)
-var versionCmd = &cobra.Command{
-	Use:   "version",
-	Short: "Show build and version",
-	Run:   func(cmd *cobra.Command, args []string) { fmt.Printf("Build: %s\nVersion: %s\n", Build, Version) }, // nolint: unparam
 }
 
 func run() {
@@ -71,7 +58,7 @@ func main() {
 	// Initialize Cobra and Viper
 	cobra.OnInitialize(cmd.Initialize)
 	cmd.AddAllFlags(rootCmd)
-	rootCmd.AddCommand(versionCmd)
+	rootCmd.AddCommand(cmd.VersionCmd)
 
 	// Run the command
 	if err := rootCmd.Execute(); err != nil {

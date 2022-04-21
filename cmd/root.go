@@ -54,7 +54,7 @@ func AddAllFlags(c *cobra.Command) {
 func Initialize() {
 	// Environment variables
 	viper.AutomaticEnv()
-	viper.SetEnvPrefix("abrico")
+	viper.SetEnvPrefix("platypus")
 	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 
 	// Configuration file
