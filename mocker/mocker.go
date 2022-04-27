@@ -9,7 +9,12 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-// GenerateRoutes generates the routes and applies them to the r gin.Engine
+// All contains all the endpoints and is used for parsing.
+type All struct {
+	Endpoints []Endpoint `yaml:"endpoints"`
+}
+
+// GenerateRoutes generates the routes and applies them to the r gin.Engine.
 func GenerateRoutes(path string, r *gin.Engine) error {
 	var err error
 	var out []byte
