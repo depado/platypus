@@ -19,4 +19,6 @@ RUN upx --best --lzma /tmp/platypus
 # Final Step
 FROM gcr.io/distroless/static
 COPY --from=builder /tmp/platypus /go/bin/platypus
-ENTRYPOINT ["/go/bin/{{ .name }}"]
+VOLUME [ "/data" ]
+WORKDIR /data
+ENTRYPOINT ["/go/bin/platypus"]

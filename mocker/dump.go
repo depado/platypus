@@ -24,19 +24,27 @@ func (d Dump) Contains(s string) bool {
 
 // Handle will handle request dumping if any.
 func (d Dump) Handle(r *http.Request, body []byte) {
-	fmt.Println("\n--------------------------------------------------")
-	if d.Contains("host") {
-		fmt.Printf("%s %s\n\n", aurora.Blue("Host:"), r.Host)
+	fmt.Println("--------------------------------------------------")
+	if d.Contains("host") || d.Contains("all") {
+		fmt.Printf("%s %s\n", aurora.Blue("Host:"), r.Host)
 	}
 
-	if d.Contains("headers") {
+	if d.Contains("proto") || d.Contains("all") {
+		fmt.Printf("%s %s\n", aurora.Blue("Proto:"), r.Proto)
+	}
+
+	if d.Contains("host") || d.Contains("proto") || d.Contains("all") {
+		fmt.Println()
+	}
+
+	if d.Contains("headers") || d.Contains("all") {
 		for k, v := range r.Header {
 			fmt.Printf("%s %s\n", aurora.BrightBlue(k+":"), strings.Join(v, ","))
 		}
 		fmt.Println()
 	}
 
-	if d.Contains("body") && len(body) > 0 {
+	if (d.Contains("body") || d.Contains("all")) && len(body) > 0 {
 		fmt.Printf("%s\n\n", string(body))
 	}
 }

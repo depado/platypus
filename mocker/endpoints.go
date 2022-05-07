@@ -6,11 +6,9 @@ import (
 	"github.com/logrusorgru/aurora"
 )
 
-// Endpoint represents a single endpoint
+// Endpoint represents a single endpoint.
 type Endpoint struct {
 	Path string `yaml:"path"`
-	Echo bool   `yaml:"echo"`
-	Dump Dump   `yaml:"dump"`
 
 	Get     *GetEndpoint     `yaml:"get"`
 	Post    *PostEndpoint    `yaml:"post"`
@@ -33,7 +31,6 @@ func (e *Endpoint) Compute() {
 
 	fmt.Printf("\n%s\n", aurora.Underline(e.Path))
 	if e.Get != nil {
-		e.Get.Endpoint = e
 		e.All = append(e.All, e.Get)
 		hasNext = e.Post != nil || e.Put != nil || e.Patch != nil || e.Delete != nil || e.Head != nil || e.Options != nil
 		if hasNext {
@@ -43,7 +40,6 @@ func (e *Endpoint) Compute() {
 		}
 	}
 	if e.Post != nil {
-		e.Post.Endpoint = e
 		e.All = append(e.All, e.Post)
 		hasNext = e.Put != nil || e.Patch != nil || e.Delete != nil || e.Head != nil || e.Options != nil
 		if hasNext {
@@ -53,7 +49,6 @@ func (e *Endpoint) Compute() {
 		}
 	}
 	if e.Put != nil {
-		e.Put.Endpoint = e
 		e.All = append(e.All, e.Put)
 		hasNext = e.Patch != nil || e.Delete != nil || e.Head != nil || e.Options != nil
 		if hasNext {
@@ -63,7 +58,6 @@ func (e *Endpoint) Compute() {
 		}
 	}
 	if e.Patch != nil {
-		e.Patch.Endpoint = e
 		e.All = append(e.All, e.Patch)
 		hasNext = e.Delete != nil || e.Head != nil || e.Options != nil
 		if hasNext {
@@ -73,7 +67,6 @@ func (e *Endpoint) Compute() {
 		}
 	}
 	if e.Delete != nil {
-		e.Delete.Endpoint = e
 		e.All = append(e.All, e.Delete)
 		hasNext = e.Head != nil || e.Options != nil
 		if hasNext {
@@ -83,7 +76,6 @@ func (e *Endpoint) Compute() {
 		}
 	}
 	if e.Head != nil {
-		e.Head.Endpoint = e
 		e.All = append(e.All, e.Head)
 		hasNext = e.Options != nil
 		if hasNext {
@@ -93,7 +85,6 @@ func (e *Endpoint) Compute() {
 		}
 	}
 	if e.Options != nil {
-		e.Options.Endpoint = e
 		e.All = append(e.All, e.Options)
 		fmt.Printf(withoutNext, aurora.BrightCyan("OPTIONS"), e.Options.Info(true))
 	}

@@ -14,3 +14,4 @@ mocks/
 mock.yml
 platypus
 dist/
+coverage.txt

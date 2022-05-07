@@ -8,14 +8,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// EndpointMethod represents a single method associated to a parent endpoint
+// EndpointMethod represents a single method associated to a parent endpoint.
 type EndpointMethod struct {
 	Echo      bool             `yaml:"echo"`
 	Dump      Dump             `yaml:"dump"`
 	Validate  RequestValidator `yaml:"validate"`
 	Responses Responses        `yaml:"responses"`
-
-	Endpoint *Endpoint `yaml:"-"`
 }
 
 // Info returns the string representing the information.
@@ -33,7 +31,7 @@ func (e EndpointMethod) Info(last bool) string {
 	return sb.String()
 }
 
-// ToHandler generates a handler to apply on the router
+// ToHandler generates a handler to apply on the router.
 func (e EndpointMethod) ToHandler() func(c *gin.Context) {
 	return func(c *gin.Context) {
 		// Extract the body
@@ -48,7 +46,11 @@ func (e EndpointMethod) ToHandler() func(c *gin.Context) {
 
 		// Validate headers and body if any validation is required
 		if err := e.Validate.Handle(c.Request, body); len(err) != 0 {
-			c.JSON(http.StatusBadRequest, gin.H{"error": "request validation failed", "reasons": err})
+			var errs []string
+			for _, ie := range err {
+				errs = append(errs, ie.Error())
+			}
+			c.JSON(http.StatusBadRequest, gin.H{"error": "request validation failed", "reasons": errs})
 			return
 		}
 
