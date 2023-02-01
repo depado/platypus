@@ -1,7 +1,7 @@
 package mocker
 
 import (
-	"io/ioutil"
+	"os"
 
 	"github.com/gin-gonic/gin"
 	"github.com/pkg/errors"
@@ -21,7 +21,7 @@ func GenerateRoutes(path string, r *gin.Engine) error {
 	var out []byte
 
 	mc := &MockConf{}
-	if out, err = ioutil.ReadFile(path); err != nil {
+	if out, err = os.ReadFile(path); err != nil {
 		return errors.Wrap(err, "open file")
 	}
 	logrus.Infof("Found mock file %s", path)

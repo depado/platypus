@@ -1,7 +1,7 @@
 package mocker
 
 import (
-	"io/ioutil"
+	"io"
 	"net/http"
 	"strings"
 
@@ -35,7 +35,7 @@ func (e EndpointMethod) Info(last bool) string {
 func (e EndpointMethod) ToHandler() func(c *gin.Context) {
 	return func(c *gin.Context) {
 		// Extract the body
-		body, err := ioutil.ReadAll(c.Request.Body)
+		body, err := io.ReadAll(c.Request.Body)
 		if err != nil {
 			c.Status(http.StatusInternalServerError)
 			return

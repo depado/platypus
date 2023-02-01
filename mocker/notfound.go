@@ -2,7 +2,7 @@ package mocker
 
 import (
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -34,7 +34,7 @@ func (nc NoRouteConf) Handle(r *gin.Engine) {
 	fmt.Print("\n")
 
 	r.NoRoute(func(c *gin.Context) {
-		body, err := ioutil.ReadAll(c.Request.Body)
+		body, err := io.ReadAll(c.Request.Body)
 		if err != nil {
 			c.Status(http.StatusInternalServerError)
 			return

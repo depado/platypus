@@ -25,7 +25,7 @@ steps:
       - name: deps
         path: /go
     commands:
-      - curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s v1.45.2
+      - curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s
       - ./bin/golangci-lint run --timeout 5m
       - rm -r ./bin/
 
