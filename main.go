@@ -2,8 +2,6 @@ package main
 
 import (
 	"fmt"
-	"math/rand"
-	"time"
 
 	"github.com/Depado/platypus/cmd"
 	"github.com/Depado/platypus/infra"
@@ -54,7 +52,6 @@ func run() {
 }
 
 func main() {
-	rand.Seed(time.Now().UnixNano())
 	// Initialize Cobra and Viper
 	cobra.OnInitialize(cmd.Initialize)
 	cmd.AddAllFlags(rootCmd)
