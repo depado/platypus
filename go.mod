@@ -3,7 +3,7 @@ module github.com/Depado/platypus
 go 1.20
 
 require (
-	github.com/gin-contrib/cors v1.6.0
+	github.com/gin-contrib/cors v1.7.0
 	github.com/gin-gonic/gin v1.9.1
 	github.com/logrusorgru/aurora v2.0.3+incompatible
 	github.com/onrik/logrus v0.11.0
