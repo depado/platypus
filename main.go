@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 
-	"github.com/Depado/platypus/cmd"
-	"github.com/Depado/platypus/infra"
-	"github.com/Depado/platypus/mocker"
+	"github.com/depado/platypus/cmd"
+	"github.com/depado/platypus/infra"
+	"github.com/depado/platypus/mocker"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"

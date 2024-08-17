@@ -1,4 +1,4 @@
-module github.com/Depado/platypus
+module github.com/depado/platypus
 
 go 1.23
 

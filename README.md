@@ -5,8 +5,8 @@
   [![forthebadge](https://forthebadge.com/images/badges/made-with-go.svg)](https://forthebadge.com)[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)[![forthebadge](https://forthebadge.com/images/badges/uses-badges.svg)](https://forthebadge.com)
 
   ![Go Version](https://img.shields.io/badge/Go%20Version-latest-brightgreen.svg)
-  [![Go Report Card](https://goreportcard.com/badge/github.com/Depado/platypus)](https://goreportcard.com/report/github.com/Depado/platypus)
-  [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/Depado/platypus/blob/master/LICENSE)
+  [![Go Report Card](https://goreportcard.com/badge/github.com/depado/platypus)](https://goreportcard.com/report/github.com/depado/platypus)
+  [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/depado/platypus/blob/master/LICENSE)
   [![Say Thanks!](https://img.shields.io/badge/Say%20Thanks-!-1EAEDB.svg)](https://saythanks.io/to/Depado)
 
   Very simple mock server that doesn't do much
@@ -28,7 +28,7 @@ CORS which is disabled by default but fully configurable.
 You can install platypus by using directly the go command line:
 
 ```bash
-$ go install github.com/Depado/platypus
+$ go install github.com/depado/platypus
 ```
 
 Or if you wish to have the version information and such:
@@ -41,12 +41,12 @@ $ make install
 ### Binary release
 
 You can also download the latest release for your system on the
-[release page](https://github.com/Depado/platypus/releases).
+[release page](https://github.com/depado/platypus/releases).
 
 ### Docker image
 
 You can run platypus directly using docker using the packages found
-[on this page](https://github.com/Depado/platypus/pkgs/container/platypus).
+[on this page](https://github.com/depado/platypus/pkgs/container/platypus).
 
 Example:
 
