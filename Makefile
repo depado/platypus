@@ -41,7 +41,7 @@ release: ## Create a new release on Github
 
 .PHONY: snapshot
 snapshot: ## Create a new snapshot release
-	goreleaser --snapshot --rm-dist
+	goreleaser --snapshot --clean
 
 .PHONY: lint
 lint: ## Runs the linter

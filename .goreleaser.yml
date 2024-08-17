@@ -1,29 +1,39 @@
+version: 2
+
+before:
+  hooks:
+    - go mod tidy
+
 builds:
-- goarch: [amd64, arm, arm64, 386]
-  goarm: [6, 7]
-  goos: [linux,darwin,windows]
-  env:
-  - CGO_ENABLED=0
-  main: ./main.go
-  binary: platypus
-  ldflags:
-   - -s -w -X "main.Version={{.Env.VERSION}}" -X "main.Build={{ .Env.BUILD }}"
-archive:
-  wrap_in_directory: true
-  format: tar.gz
-  replacements:
-    darwin: Darwin
-    linux: Linux
-    windows: Windows
-    386: i386
-    amd64: x86_64
-checksum:
-  name_template: 'checksums.txt'
-snapshot:
-  name_template: "{{ .Tag }}-next"
+  - goarch: [amd64, arm, arm64, 386]
+    goarm: [6, 7]
+    goos: [linux, darwin, windows]
+    ignore:
+      - goos: darwin
+        goarch: 386
+    env:
+      - CGO_ENABLED=0
+    ldflags:
+      - -s -w
+      - -X 'main.Version={{ .Version }}'
+      - -X 'main.Build={{ .Commit }}'
+
+archives:
+  - format: tar.gz
+    name_template: >-
+      {{ .ProjectName }}_
+      {{- .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
+      {{- if .Arm }}v{{ .Arm }}{{ end }}
+    format_overrides:
+      - goos: windows
+        format: zip
+
 changelog:
   sort: asc
   filters:
     exclude:
-    - '^docs:'
-    - '^test:'
+      - "^docs:"
+      - "^test:"
