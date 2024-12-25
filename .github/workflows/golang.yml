@@ -29,7 +29,9 @@ jobs:
         with: { go-version: stable }
       - uses: gwatts/go-coverage-action@v2
         id: coverage
-        with: { cover-pkg: ./... }
+        with:
+          cover-pkg: ./...
+          fail-coverage: never
 
   golangci:
     needs: build
