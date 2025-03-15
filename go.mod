@@ -12,7 +12,7 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/sirupsen/logrus v1.9.3
 	github.com/spf13/cobra v1.9.1
-	github.com/spf13/viper v1.19.0
+	github.com/spf13/viper v1.20.0
 	gopkg.in/yaml.v3 v3.0.1
 )
 
@@ -26,6 +26,7 @@ require (
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
 	github.com/go-playground/validator/v10 v10.25.0 // indirect
+	github.com/go-viper/mapstructure/v2 v2.2.1 // indirect
 	github.com/goccy/go-json v0.10.5 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
