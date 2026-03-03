@@ -56,7 +56,7 @@ func (r Response) Info(prefix string, last bool) string {
 		s = "└─"
 	}
 
-	sb.WriteString(fmt.Sprintf("%s %s %s", prefix, s, codeToColor(r.Code).String()))
+	fmt.Fprintf(&sb, "%s %s %s", prefix, s, codeToColor(r.Code).String())
 	if r.Name != "" {
 		sb.WriteString(aurora.Cyan(" " + r.Name).String())
 	}
