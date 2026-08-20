@@ -2,7 +2,7 @@ module github.com/depado/platypus
 
 go 1.25.0
 
-toolchain go1.26.6
+toolchain go1.27.0
 
 require (
 	github.com/gin-contrib/cors v1.7.7
